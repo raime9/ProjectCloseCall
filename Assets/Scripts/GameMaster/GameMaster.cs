@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public class GameMaster : MonoBehaviour
+namespace CloseCall.Core
 {
-    public static GameMaster Instance { get; private set; }
-    [SerializeField] Health playerController;
-    [SerializeField] Score Score;
-    public GameMaster()
+    public class GameMaster : MonoBehaviour
     {
-        if (Instance != null)
+        public static GameMaster Instance { get; private set; }
+        [SerializeField] Health playerController;
+        [SerializeField] Score Score;
+        private void Awake()
         {
-            Destroy(this);
+            if (Instance != null)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                Instance = this;
+            }
         }
-        else
+        public Health GetHealth()
         {
-            Instance = this;
+            return playerController;
         }
-    }
-    public Health GetHealth()
-    {
-        return playerController;
-    }
-    public Score GetScore()
-    {
-        return Score;
+        public Score GetScore()
+        {
+            return Score;
+        }
     }
 }

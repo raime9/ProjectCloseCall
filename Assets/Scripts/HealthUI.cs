@@ -1,11 +1,15 @@
+using CloseCall.Core;
 using TMPro;
 using UnityEngine;
 
-public class HealthUI : MonoBehaviour
+namespace CloseCall.UI
 {
-    [SerializeField] TextMeshProUGUI health;
-    private void Update()
+    public class HealthUI : MonoBehaviour
     {
-        health.text = GameMaster.Instance.GetHealth().ToString();
+        [SerializeField] TextMeshProUGUI health;
+        private void Update()
+        {
+            health.text = GameMaster.Instance.GetHealth().ToString();
+        }
     }
 }

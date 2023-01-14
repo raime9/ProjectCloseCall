@@ -1,41 +1,40 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class Score : MonoBehaviour
+namespace CloseCall.Core
 {
-    float level = 1f;
-    float score = 0;
-    public static Score Instance { get; private set; }
-    public Score()
+    public class Score : MonoBehaviour
     {
-        if(Instance != null)
+        float level = 1f;
+        float score = 0;
+        public static Score Instance { get; private set; }
+        private void Awake()
         {
-            Destroy(this);
-            return;
+            if (Instance != null)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
         }
-        Instance = this;
-    }
-    public void AddScore(int i)
-    {
-        score += i;
-    }
-    public void AddLevel()
-    {
-        level++;
-    }
-    public void ResetScore()
-    {
-        score = 0;
-    }
-    private void Update()
-    {
-        score += Time.deltaTime * level;
-    }
-    public override string ToString()
-    {
-        return $"Score : {(int)score}";
+        public void AddScore(int i)
+        {
+            score += i;
+        }
+        public void AddLevel()
+        {
+            level++;
+        }
+        public void ResetScore()
+        {
+            score = 0;
+        }
+        private void Update()
+        {
+            score += Time.deltaTime * level;
+        }
+        public override string ToString()
+        {
+            return $"Score : {(int)score}";
+        }
     }
 }

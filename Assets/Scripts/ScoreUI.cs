@@ -1,12 +1,16 @@
+using CloseCall.Core;
 using TMPro;
 using UnityEngine;
 
-public class ScoreUI : MonoBehaviour
+namespace CloseCall.UI
 {
-
-    [SerializeField] TextMeshProUGUI ScoreText;
-    private void Update()
+    public class ScoreUI : MonoBehaviour
     {
-        ScoreText.text = GameMaster.Instance.GetScore().ToString();
+
+        [SerializeField] TextMeshProUGUI ScoreText;
+        private void Update()
+        {
+            ScoreText.text = GameMaster.Instance.GetScore().ToString();
+        }
     }
 }
