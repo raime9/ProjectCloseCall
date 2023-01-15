@@ -3,9 +3,16 @@ using UnityEngine;
 
 namespace CloseCall.Controls
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IPowerUp
     {
-        [SerializeField] Health PlayerObject;
+        [SerializeField] Health PlayerHealth;
+        [SerializeField] PowerUp powerUpSystem;
+        private void Awake()
+        {
+
+            powerUpSystem = GetComponentInChildren<PowerUp>();
+            PlayerHealth = GetComponentInChildren<Health>();
+        }
         private void Update()
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -15,22 +22,29 @@ namespace CloseCall.Controls
         private void Movement(Vector3 mousePosition)
         {
             //moves player across field
-            PlayerObject.transform.position = Vector3.Lerp(PlayerObject.transform.position, new Vector3(mousePosition.x, mousePosition.y, 0), 10f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(mousePosition.x, mousePosition.y, 0), 10f * Time.deltaTime);
         }
 
         private void Rotation(Vector3 mousePosition)
         {
 
-            Vector3 rotation = mousePosition - PlayerObject.transform.position;
+            Vector3 rotation = mousePosition - transform.position;
             float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
             //rotations player object
-            PlayerObject.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+            transform.rotation = Quaternion.Euler(0, 0, rotationZ);
 
         }
-        public IHealth GetPlayer()
+        public Health GetHealthSystem()
         {
-            if (PlayerObject == null) return null;
-            return PlayerObject;
+            return PlayerHealth;
+        }
+        public PowerUp GetPowerSystem()
+        {
+            return powerUpSystem;
+        }
+        public void AddToBar(int i)
+        {
+            powerUpSystem.AddToBar(i);
         }
     }
 }

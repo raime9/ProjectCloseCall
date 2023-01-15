@@ -1,5 +1,8 @@
+using CloseCall.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
 
@@ -8,7 +11,7 @@ public class PowerBarUI : MonoBehaviour
     [SerializeField] GameObject bar;
     [SerializeField] GameObject[] bars;
     const int MAX_SPAWN = 10;
-    int currentBar = 0;
+    int currentCounter = 0;
     private void Start()
     {
         bars = new GameObject[10];
@@ -19,22 +22,21 @@ public class PowerBarUI : MonoBehaviour
             bars[i] = pointBar;
             pointBar.SetActive(false);
         }
+        GameMaster.Instance.GetPowerUpSystem().OnScoreUpdate += SetActiveBar;
     }
     void SetActiveBar(int amount)
     {
-        for(int i = 0; i < amount; i++)
-        {
-            if (currentBar >= MAX_SPAWN) return;
-            bars[currentBar].SetActive(true);
-            currentBar++;
-        }
-    }
-    void ResetActiveBars()
-    {
         for(int i = 0; i < bars.Length; i++)
         {
-            bars[i].SetActive(false);
+            if(i < amount)
+            {
+                bars[i].SetActive(true);
+                bars[i].GetComponentInChildren<TextMeshProUGUI>().text = $"{i + 1}";
+            }
+            else
+            {
+                bars[i].SetActive(false);
+            }
         }
-        currentBar = 0;
     }
 }

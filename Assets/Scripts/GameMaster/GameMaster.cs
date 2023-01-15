@@ -1,3 +1,4 @@
+using CloseCall.Controls;
 using UnityEngine;
 
 namespace CloseCall.Core
@@ -5,7 +6,7 @@ namespace CloseCall.Core
     public class GameMaster : MonoBehaviour
     {
         public static GameMaster Instance { get; private set; }
-        [SerializeField] Health playerController;
+        [SerializeField] PlayerController playerController;
         [SerializeField] Score Score;
         private void Awake()
         {
@@ -16,11 +17,16 @@ namespace CloseCall.Core
             else
             {
                 Instance = this;
+                playerController = GetComponentInChildren<PlayerController>();
             }
         }
         public Health GetHealth()
         {
-            return playerController;
+            return playerController.GetHealthSystem();
+        }
+        public PowerUp GetPowerUpSystem()
+        {
+            return playerController.GetPowerSystem();
         }
         public Score GetScore()
         {

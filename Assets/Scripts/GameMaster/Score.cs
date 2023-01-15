@@ -28,6 +28,7 @@ namespace CloseCall.Core
         {
             score = 0;
         }
+        //scorelogic
         private void Update()
         {
             score += Time.deltaTime * level;

@@ -1,18 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+public class PowerUp : MonoBehaviour, IPowerUp
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] int power = 0;
+    public Action<int> OnScoreUpdate;
+    public void AddToBar(int i)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        power += i;
+        OnScoreUpdate?.Invoke(power);
     }
 }
